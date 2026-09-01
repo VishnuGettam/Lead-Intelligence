@@ -1,57 +1,44 @@
+import pandas as pd
+import json
+
 from datetime import datetime
 from pathlib import Path
-
-import pandas as pd
-
 from lead_intelligence.ingestion.csv_reader import read_leads
-
 from lead_intelligence.validation.validator import (
     validate_columns,
     validate_leads,
 )
-
 from lead_intelligence.transformation.cleaner import clean_leads
-
 from lead_intelligence.qualification.rubric import (
     qualify_leads,
     assign_priority_rank,
 )
-
 from lead_intelligence.llm.client import LLMClient
-
 from lead_intelligence.reporting.report import (
     generate_report,
 )
-
-import json
+from lead_intelligence.config.settings import(
+    
+    LEADS_PATH,
+    QUARANTINE_OUTPUT_PATH,
+    TRANSFORMED_OUTPUT_PATH,
+    PRE_LLM_OUTPUT_PATH,
+    FINAL_OUTPUT_PATH,
+    AGGREGATED_REPORT_PATH, 
+    
+)
 
 
 # ============================================================
 # Configuration
 # ============================================================
 
-#LEADS_PATH = "data/raw/leads_training.csv"
-LEADS_PATH = "data/raw/final_leads.csv"
-
-
-QUARANTINE_OUTPUT_PATH = ("data/quarantine/invalid_leads.csv")
-
-
-TRANSFORMED_OUTPUT_PATH = (
-    "data/processed/leads_training_tf.csv"
-)
-
-PRE_LLM_OUTPUT_PATH = (
-    "data/processed/pre_llm_leads.csv"
-)
-
-FINAL_OUTPUT_PATH = (
-    "data/output/final_leads.csv"
-)
-
-AGGREGATED_REPORT_PATH = (
-    "data/output/aggregated_report.json"
-)
+# LEADS_PATH = read_leads(LEADS_PATH)
+# QUARANTINE_OUTPUT_PATH = read_leads(QUARANTINE_OUTPUT_PATH)
+# TRANSFORMED_OUTPUT_PATH = read_leads(TRANSFORMED_OUTPUT_PATH)
+# PRE_LLM_OUTPUT_PATH = read_leads(PRE_LLM_OUTPUT_PATH)
+# FINAL_OUTPUT_PATH = read_leads(FINAL_OUTPUT_PATH)
+# AGGREGATED_REPORT_PATH = read_leads(AGGREGATED_REPORT_PATH)
 
 # Number of leads sent to the LLM in one API call
 BATCH_SIZE = 10

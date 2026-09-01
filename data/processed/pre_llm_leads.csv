@@ -1,0 +1,46 @@
+lead_id,name,company,company_size,industry,source,last_interaction_date,qualification_score,decision,score_breakdown,priority_rank
+L038,Test_Highvaluematch,Perfect Fit Enterprise,2000,Saas,inbound demo request,2024-01-20,80,qualified,"{'company_size': 30, 'industry': 25, 'source': 25, 'recency': 0}",1
+L036,Test_Multipleinteractions,Active Company,500,Finance,inbound demo request,2024-01-20,75,qualified,"{'company_size': 25, 'industry': 25, 'source': 25, 'recency': 0}",2
+L014,Nathan Brooks,Enterprise Solutions Corp,3500,Software,inbound demo request,2024-01-13,70,qualified,"{'company_size': 30, 'industry': 15, 'source': 25, 'recency': 0}",3
+L042,Test_Midmarketsoft,Mid Market Software,1500,Saas,content download,2024-01-18,70,qualified,"{'company_size': 30, 'industry': 25, 'source': 15, 'recency': 0}",4
+L003,Carol Singh,National Bank Corp,5000,Finance,content download,2023-12-01,70,qualified,"{'company_size': 30, 'industry': 25, 'source': 15, 'recency': 0}",5
+L033,Test_Recentengagement,Hot Lead Corp,200,Saas,inbound demo request,2024-01-20,70,qualified,"{'company_size': 20, 'industry': 25, 'source': 25, 'recency': 0}",6
+L001,Alice Chen,Cloudscale Ai,50,Saas,inbound demo request,2024-01-15,60,review,"{'company_size': 10, 'industry': 25, 'source': 25, 'recency': 0}",7
+L030,Test_Verylargeenterprise,Global Fortune 500 Corp,50000,Enterprise Software,inbound demo request,2024-01-20,60,review,"{'company_size': 30, 'industry': 5, 'source': 25, 'recency': 0}",8
+L045,Test_Smbaverage,Average Smb Co,120,Retail,inbound demo request,2024-01-19,60,review,"{'company_size': 20, 'industry': 15, 'source': 25, 'recency': 0}",9
+L006,Frank Liu,Healthcare Systems Ltd,1200,Healthcare,sales call,2024-01-12,60,review,"{'company_size': 30, 'industry': 25, 'source': 5, 'recency': 0}",10
+L005,Emma Thompson,Retailworks Solutions,200,Retail,inbound demo request,2023-11-10,60,review,"{'company_size': 20, 'industry': 15, 'source': 25, 'recency': 0}",11
+L020,Tina Patel,Energy Solutions,900,Energy,inbound demo request,2023-10-18,55,review,"{'company_size': 25, 'industry': 5, 'source': 25, 'recency': 0}",12
+L026,Zara Hassan,Education Institution,600,Education,inbound demo request,2023-12-05,55,review,"{'company_size': 25, 'industry': 5, 'source': 25, 'recency': 0}",13
+L035,Test_Veryrecentsignup,Brand New Startup,2,Saas,inbound demo request,2024-01-20,55,review,"{'company_size': 5, 'industry': 25, 'source': 25, 'recency': 0}",14
+L004,David Moore,Startupxyz,3,Saas,referral,2024-01-18,52,review,"{'company_size': 5, 'industry': 25, 'source': 22, 'recency': 0}",15
+L043,Test_Startupshutdown,Failed Startup,8,Saas,referral,2023-05-01,52,review,"{'company_size': 5, 'industry': 25, 'source': 22, 'recency': 0}",16
+L023,Wendy Zhang,Fashion Brand,400,Retail,content download,2024-01-05,50,review,"{'company_size': 20, 'industry': 15, 'source': 15, 'recency': 0}",17
+L010,Jack White,Digital Marketing Agency,120,Marketing,inbound demo request,2024-01-19,50,review,"{'company_size': 20, 'industry': 5, 'source': 25, 'recency': 0}",18
+L012,Leon Chen,Fintech Startup,25,Fintech,referral,2024-01-17,42,review,"{'company_size': 5, 'industry': 15, 'source': 22, 'recency': 0}",19
+L009,Iris Patel,Logistics Global,800,Logistics,linkedin outreach,2023-09-20,40,review,"{'company_size': 25, 'industry': 5, 'source': 10, 'recency': 0}",20
+L002,Bob Rodriguez,Techventures Inc,8,Saas,linkedin outreach,2024-01-20,40,review,"{'company_size': 5, 'industry': 25, 'source': 10, 'recency': 0}",21
+L018,Rachel Kim,Government Agency,800,Government,content download,2023-12-10,40,review,"{'company_size': 25, 'industry': 0, 'source': 15, 'recency': 0}",22
+L029,Cassandra Jones,Media & Entertainment,150,Media,content download,2024-01-01,40,review,"{'company_size': 20, 'industry': 5, 'source': 15, 'recency': 0}",23
+L016,Pamela White,Pharma Research Inc,2200,Pharmaceuticals,sales call,2023-11-25,40,review,"{'company_size': 30, 'industry': 5, 'source': 5, 'recency': 0}",24
+L037,Test_Nosourceinfo,Source Unknown Corp,300,Retail,unknown source,2024-01-18,40,review,"{'company_size': 20, 'industry': 15, 'source': 5, 'recency': 0}",25
+L019,Samuel Lee,Cybersecurity Startup,60,Cybersecurity,referral,2024-01-09,37,rejected,"{'company_size': 10, 'industry': 5, 'source': 22, 'recency': 0}",26
+L025,Yuki Tanaka,Travel Technology,55,Travel,referral,2024-01-04,37,rejected,"{'company_size': 10, 'industry': 5, 'source': 22, 'recency': 0}",27
+L027,Aaron Benj,Supply Chain Co,320,Supply Chain,linkedin outreach,2024-01-02,35,rejected,"{'company_size': 20, 'industry': 5, 'source': 10, 'recency': 0}",28
+L011,Karen Miller,Insurancepro,600,Insurance,sales call,2023-12-15,35,rejected,"{'company_size': 25, 'industry': 5, 'source': 5, 'recency': 0}",29
+L044,Test_Governmentbuyer,Government Tech,3000,Government,sales call,2024-01-17,35,rejected,"{'company_size': 30, 'industry': 0, 'source': 5, 'recency': 0}",30
+L034,Test_Unknownindustry,Mysterious Startup,15,Unknown Sector,referral,2024-01-19,32,rejected,"{'company_size': 5, 'industry': 5, 'source': 22, 'recency': 0}",31
+L007,Grace Lee,Manufacturing Co,450,Manufacturing,webinar attendee,2023-10-05,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",32
+L008,Henry Park,Edtech Innovations,75,Edtech,content download,2024-01-14,30,rejected,"{'company_size': 10, 'industry': 5, 'source': 15, 'recency': 0}",33
+L041,Test_Weekoldinteraction,Week Old Corp,250,Logistics,webinar attendee,2024-01-13,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",34
+L017,Quinn Matthews,Consulting Firm,180,Consulting,webinar attendee,2024-01-11,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",35
+L022,Victor Moore,Real Estate Platform,250,Real Estate,sales call,2024-01-06,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",36
+L024,Xavier Lopez,Data Analytics Firm,110,Analytics,webinar attendee,2023-12-22,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",37
+L032,Test_Staleinteraction,Old Company Inc,100,Manufacturing,sales call,2022-06-15,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",38
+L040,Test_Missingname,,400,Consulting,sales call,2024-01-19,30,rejected,"{'company_size': 20, 'industry': 5, 'source': 5, 'recency': 0}",39
+L013,Maya Desai,Agricultural Tech,45,Agriculture,content download,2024-01-16,25,rejected,"{'company_size': 5, 'industry': 5, 'source': 15, 'recency': 0}",40
+L015,Olivia Garcia,Local Restaurant Group,12,Hospitality,linkedin outreach,2023-08-30,20,rejected,"{'company_size': 5, 'industry': 5, 'source': 10, 'recency': 0}",41
+L028,Bella Cross,Legal Services Firm,90,Legal,sales call,2023-11-30,20,rejected,"{'company_size': 10, 'industry': 5, 'source': 5, 'recency': 0}",42
+L021,Uma Singh,Event Planning Co,35,Events,linkedin outreach,2024-01-08,20,rejected,"{'company_size': 5, 'industry': 5, 'source': 10, 'recency': 0}",43
+L031,Test_Solo,John Doe Consulting,1,Consulting,linkedin outreach,2024-01-20,20,rejected,"{'company_size': 5, 'industry': 5, 'source': 10, 'recency': 0}",44
+L039,Test_Lowvalueniche,Niche Small Op,5,Agriculture,linkedin outreach,2024-01-15,20,rejected,"{'company_size': 5, 'industry': 5, 'source': 10, 'recency': 0}",45

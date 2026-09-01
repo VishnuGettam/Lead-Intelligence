@@ -1,0 +1,50 @@
+﻿name,company,company_size,industry,source,last_interaction_date
+Alice Chen,CloudScale AI,50,SaaS,Inbound demo request,15-01-2024
+Bob Rodriguez,TechVentures Inc,8,SaaS,LinkedIn outreach,20-01-2024
+Carol Singh,National Bank Corp,5000,Finance,Content download,01-12-2023
+David Moore,StartupXYZ,3,SaaS,Referral,18-01-2024
+Emma Thompson,RetailWorks Solutions,200,Retail,Inbound demo request,10-11-2023
+Frank Liu,Healthcare Systems Ltd,1200,Healthcare,Sales call,12-01-2024
+Grace Lee,Manufacturing Co,450,Manufacturing,Webinar attendee,05-10-2023
+Henry Park,EdTech Innovations,75,EdTech,Content download,14-01-2024
+Iris Patel,Logistics Global,800,Logistics,LinkedIn outreach,20-09-2023
+Jack White,Digital Marketing Agency,120,Marketing,Inbound demo request,19-01-2024
+Karen Miller,InsurancePro,600,Insurance,Sales call,15-12-2023
+Leon Chen,FinTech Startup,25,FinTech,Referral,17-01-2024
+Maya Desai,Agricultural Tech,45,Agriculture,Content download,16-01-2024
+Nathan Brooks,Enterprise Solutions Corp,3500,Software,Inbound demo request,13-01-2024
+Olivia Garcia,Local Restaurant Group,12,Hospitality,LinkedIn outreach,30-08-2023
+Pamela White,Pharma Research Inc,2200,Pharmaceuticals,Sales call,25-11-2023
+Quinn Matthews,Consulting Firm,180,Consulting,Webinar attendee,11-01-2024
+Rachel Kim,Government Agency,800,Government,Content download,10-12-2023
+Samuel Lee,Cybersecurity Startup,60,Cybersecurity,Referral,09-01-2024
+Tina Patel,Energy Solutions,900,Energy,Inbound demo request,18-10-2023
+Uma Singh,Event Planning Co,35,Events,LinkedIn outreach,08-01-2024
+Victor Moore,Real Estate Platform,250,Real Estate,Sales call,06-01-2024
+Wendy Zhang,Fashion Brand,400,Retail,Content download,05-01-2024
+Xavier Lopez,Data Analytics Firm,110,Analytics,Webinar attendee,22-12-2023
+Yuki Tanaka,Travel Technology,55,Travel,Referral,04-01-2024
+Zara Hassan,Education Institution,600,Education,Inbound demo request,05-12-2023
+Aaron Benj,Supply Chain Co,320,Supply Chain,LinkedIn outreach,02-01-2024
+Bella Cross,Legal Services Firm,90,Legal,Sales call,30-11-2023
+Cassandra Jones,Media & Entertainment,150,Media,Content download,01-01-2024
+Test_MissingSize,Test Inc,NA,SaaS,Inbound demo request,20-01-2024
+Test_VeryLargeEnterprise,Global Fortune 500 Corp,50000,Enterprise Software,Inbound demo request,20-01-2024
+Test_Solo,John Doe Consulting,1,Consulting,LinkedIn outreach,20-01-2024
+Test_StaleInteraction,Old Company Inc,100,Manufacturing,Sales call,15-06-2022
+Test_RecentEngagement,Hot Lead Corp,200,SaaS,Inbound demo request,20-01-2024
+Test_MissingDate,Mystery Co,150,Technology,,
+Test_UnknownIndustry,Mysterious Startup,15,Unknown Sector,Referral,19-01-2024
+Test_VeryRecentSignup,Brand New Startup,2,SaaS,Inbound demo request,20-01-2024
+Test_MultipleInteractions,Active Company,500,Finance,Inbound demo request,20-01-2024
+Test_NoSourceInfo,Source Unknown Corp,300,Retail,Unknown Source,18-01-2024
+Test_HighValueMatch,Perfect Fit Enterprise,2000,SaaS,Inbound demo request,20-01-2024
+Test_LowValueNiche,Niche Small Op,5,Agriculture,LinkedIn outreach,15-01-2024
+Test_MissingName,,400,Consulting,Sales call,19-01-2024
+Test_NameOnly,James Wilson,NA,NA,NA,NA
+Test_PartialData,Tech Partial,NA,SaaS,,20-01-2024
+Test_WeekOldInteraction,Week Old Corp,250,Logistics,Webinar attendee,13-01-2024
+Test_MidMarketSoft,Mid Market Software,1500,SaaS,Content download,18-01-2024
+Test_StartupShutdown,Failed Startup,8,SaaS,Referral,01-05-2023
+Test_GovernmentBuyer,Government Tech,3000,Government,Sales call,17-01-2024
+Test_SMBAverage,Average SMB Co,120,Retail,Inbound demo request,19-01-2024

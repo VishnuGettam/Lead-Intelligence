@@ -1,0 +1,5 @@
+name,company,company_size,industry,source,last_interaction_date,status,errors
+Test_MissingSize,Test Inc,,SaaS,Inbound demo request,20-01-2024,invalid,Missing company_size
+Test_MissingDate,Mystery Co,150.0,Technology,,,invalid,"Missing source, Missing last_interaction_date"
+Test_NameOnly,James Wilson,,,,,invalid,"Missing company_size, Missing industry, Missing source, Missing last_interaction_date"
+Test_PartialData,Tech Partial,,SaaS,,20-01-2024,invalid,"Missing company_size, Missing source"

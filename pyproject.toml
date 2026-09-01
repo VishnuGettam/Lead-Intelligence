@@ -10,10 +10,11 @@ requires-python = ">=3.14"
 dependencies = [
     "google-genai>=2.20.0",
     "pandas>=3.0.5",
+    "python-dotenv>=1.2.3",
 ]
 
 [project.scripts]
-lead-intelligence = "lead_intelligence:main"
+lead-intelligence = "lead_intelligence.pipeline:main"
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
