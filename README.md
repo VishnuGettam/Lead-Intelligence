@@ -743,13 +743,13 @@ configuration layer.
 Required configuration includes:
 
 ```env
-LEADS_PATH=data/raw/raw_leads.csv
-QUARANTINE_OUTPUT_PATH=data/quarantine/invalid_leads.csv
-TRANSFORMED_OUTPUT_PATH=data/processed/leads_training_tf.csv
-PRE_LLM_OUTPUT_PATH=data/processed/pre_llm_leads.csv
-FINAL_OUTPUT_PATH=data/output/final_leads.csv
-AGGREGATED_REPORT_PATH=data/output/aggregated_report.json
-GEMINI_API_KEY=your_gemini_api_key
+LEADS_PATH = "data/raw/raw_leads.csv"
+QUARANTINE_OUTPUT_PATH = "data/quarantine/invalid_leads.csv"
+TRANSFORMED_OUTPUT_PATH = "data/processed/leads_training_tf.csv"
+PRE_LLM_OUTPUT_PATH = "data/processed/pre_llm_leads.csv"
+FINAL_OUTPUT_PATH = "data/output/final_leads.csv"
+AGGREGATED_REPORT_PATH = "data/output/aggregated_report.json"
+GEMINI_API_KEY="gemini_api_key"
 ```
 
 Do **not** commit API keys to Git.
