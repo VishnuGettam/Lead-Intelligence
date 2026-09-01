@@ -10,9 +10,10 @@ from lead_intelligence.llm.prompts import (
     build_lead_prompt,
 )
 
-from lead_intelligence.config.settings import (
+from lead_intelligence.config.settings import(
     GEMINI_API_KEY
 )
+
 
 class LLMClient:
     """Client for interacting with the Gemini API."""
@@ -26,6 +27,7 @@ class LLMClient:
         self.max_retries = max_retries
 
         api_key = GEMINI_API_KEY
+        #os.getenv("GEMINI_API_KEY")
 
         if not api_key:
             raise ValueError(

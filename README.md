@@ -99,7 +99,10 @@ lead-intelligence/
 |
 +-- data/
 |   +-- raw/
-|   |   +-- leads_training.csv
+|   |   +-- raw_leads.csv
+|   |
+|   +--quarantine/
+|   |   +-- invalid_leads.csv
 |   |
 |   +-- processed/
 |   |   +-- leads_training_tf.csv
@@ -136,7 +139,8 @@ lead-intelligence/
 +-- tests/
 |
 +-- .env
-+-- requirements.txt
++-- pyproject.toml
++-- uv.lock
 +-- README.md
 ```
 
@@ -706,29 +710,46 @@ uv sync
 
 ### Run the pipeline with uv
 
-The pipeline can be executed directly through uv:
+The project uses the configured console entry point. From the project root:
+
+```bash
+uv run lead-intelligence
+```
+
+This invokes the main orchestration pipeline in:
+
+```text
+src/lead_intelligence/pipeline.py
+```
+
+If the console entry point is not available in a particular local checkout, the
+module form can be used as a fallback:
 
 ```bash
 uv run python -m lead_intelligence.pipeline
 ```
+
+Do not execute the application through `__init__.py`; it is a package/module
+initialization file, while `pipeline.py` contains the application orchestration.
 
 Using `uv run` ensures the command executes with the project's managed
 environment and dependencies.
 
 ## 16. Gemini API Configuration
 
-Set the environment variable:
+The project loads configuration from a `.env` file through the project
+configuration layer.
 
-```text
-GEMINI_API_KEY
-```
+Required configuration includes:
 
-For local development, it can be loaded through a `.env` file if the project configuration supports it.
-
-Example:
-
-```text
-GEMINI_API_KEY=your_api_key_here
+```env
+LEADS_PATH=data/raw/raw_leads.csv
+QUARANTINE_OUTPUT_PATH=data/quarantine/invalid_leads.csv
+TRANSFORMED_OUTPUT_PATH=data/processed/leads_training_tf.csv
+PRE_LLM_OUTPUT_PATH=data/processed/pre_llm_leads.csv
+FINAL_OUTPUT_PATH=data/output/final_leads.csv
+AGGREGATED_REPORT_PATH=data/output/aggregated_report.json
+GEMINI_API_KEY=your_gemini_api_key
 ```
 
 Do **not** commit API keys to Git.
@@ -752,32 +773,85 @@ The main orchestration entry point is:
 src/lead_intelligence/pipeline.py
 ```
 
-Run it from the project root:
+### Step-by-step execution
+
+From the project root:
+
+#### 1. Synchronize dependencies
 
 ```bash
-python -m lead_intelligence.pipeline
+uv sync
 ```
 
-If the package is configured differently, run the project's configured entry point accordingly.
+#### 2. Verify `.env`
+
+Ensure the required paths and `GEMINI_API_KEY` are configured.
+
+#### 3. Run the application
+
+```bash
+uv run lead-intelligence
+```
+
+Fallback module execution:
+
+```bash
+uv run python -m lead_intelligence.pipeline
+```
+
+#### 4. Verify generated artifacts
+
+After execution, check:
+
+```text
+data/quarantine/invalid_leads.csv
+data/processed/leads_training_tf.csv
+data/processed/pre_llm_leads.csv
+data/output/final_leads.csv
+data/output/aggregated_report.json
+```
+
+### Runtime pipeline
 
 The pipeline executes:
 
 ```text
-1. Ingestion
-2. Validation
-3. Separate valid and invalid records
-4. Quarantine invalid records
-5. Transformation of valid records
-6. Qualification
-7. Priority ranking
-8. Pre-LLM checkpoint
-9. Batched LLM processing
-10. LLM result merge
-11. Final CSV generation
-12. Aggregated reporting
+1. Load environment configuration
+2. Validate required configuration
+3. Ingest raw CSV
+4. Validate schema
+5. Validate individual records
+6. Separate valid and invalid records
+7. Write invalid records to quarantine
+8. Transform valid records
+9. Generate lead_id
+10. Apply qualification rubric
+11. Assign priority rank
+12. Write pre-LLM checkpoint
+13. Create LLM batches
+14. Call Gemini once per batch
+15. Validate LLM responses
+16. Merge LLM results using lead_id
+17. Generate final CSV
+18. Generate aggregated JSON report
 ```
 
----
+### Important execution rule
+
+Invalid records stop at the quarantine layer:
+
+```text
+invalid → quarantine
+```
+
+They must not continue to transformation, qualification, ranking, or LLM
+processing.
+
+Valid records continue through:
+
+```text
+valid → transform → qualify → rank → pre-LLM → LLM → final → report
+```
 
 ## 18. Debugging
 
