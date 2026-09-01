@@ -7,8 +7,8 @@ import pandas as pd
 # Qualification thresholds
 # ============================================================
 
-QUALIFIED_THRESHOLD = 80
-REVIEW_THRESHOLD = 50
+QUALIFIED_THRESHOLD = 70
+REVIEW_THRESHOLD = 40
 
 
 # ============================================================

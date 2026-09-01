@@ -35,12 +35,24 @@ Turn raw lead data into:
                     +---------------+
                     |  Validation   |
                     +---------------+
-                            |
-                            v
-                    +---------------+
-                    |Transformation |
-                    |  + lead_id    |
-                    +---------------+
+                       /           \
+                      /             \
+                     v               v
+              +-------------+   +---------------+
+              |    VALID    |   |   INVALID     |
+              +-------------+   +---------------+
+                     |               |
+                     |               v
+                     |        +-------------+
+                     |        | Quarantine  |
+                     |        | invalid CSV |
+                     |        +-------------+
+                     |
+                     v
+              +---------------+
+              |Transformation |
+              |  + lead_id    |
+              +---------------+
                             |
                             v
                     +---------------+
@@ -178,7 +190,8 @@ Responsibilities:
 
 ### 5.2 Validation
 
-`validator.py` performs two levels of validation.
+`validator.py` performs two levels of validation and determines whether each
+record is suitable to continue through the main lead-intelligence pipeline.
 
 #### Schema validation
 
@@ -208,9 +221,68 @@ Examples:
 - Invalid source
 - Invalid interaction date
 
-Invalid data should not silently be treated as valid business information.
+Each record receives a validation result containing:
 
----
+- `row_number`
+- `is_valid`
+- `status` — `valid` or `invalid`
+- `errors` — one or more validation errors associated with the record
+
+A record with no validation errors is marked `valid`. A record with one or more
+validation errors is marked `invalid`.
+
+#### Quarantine Layer
+
+Invalid records are **not sent to transformation, qualification, priority
+ranking, or the LLM**. They are separated from the valid records and written
+to:
+
+```text
+data/quarantine/invalid_leads.csv
+```
+
+The quarantine dataset preserves the invalid lead information and adds the
+validation errors identified for each row.
+
+Example:
+
+```text
+name       company       company_size   industry   status    errors
+---------------------------------------------------------------------------
+John Doe   ABC Corp      NaN            SaaS       invalid   Missing company_size
+Jane Doe   XYZ Ltd       500            NaN        invalid   Missing industry
+```
+
+Multiple validation errors for the same record are retained together.
+
+This creates a clear distinction between **data quality status** and
+**business qualification decision**:
+
+```text
+Validation Status       Qualification Decision
+-----------------       ----------------------
+valid                   qualified
+valid                   review
+valid                   rejected
+invalid                 not evaluated
+```
+
+`review` is therefore a business qualification outcome and is not used as a
+substitute for invalid data.
+
+The valid subset alone continues through the main pipeline:
+
+```text
+Validation
+    |
+    +--> valid records   --> Transformation --> Qualification --> LLM
+    |
+    +--> invalid records --> Quarantine
+```
+
+This prevents incomplete or invalid input data from affecting the qualification
+rubric while retaining the records for audit, correction, and possible
+reprocessing.
 
 ### 5.3 Transformation
 
@@ -587,35 +659,61 @@ Example structure:
 
 ## 15. Environment Setup
 
+The project uses **uv** for Python environment and dependency management.
+
 ### Prerequisites
 
 - Python 3.10+
+- `uv`
 - Internet connectivity for Gemini API calls
 - A Gemini API key
 
-### Create a virtual environment
+### Create the virtual environment
+
+From the project root:
+
+```bash
+uv venv
+```
+
+Activate the environment.
 
 Windows:
 
 ```bash
-python -m venv .venv
 .venv\Scripts\activate
 ```
 
 macOS/Linux:
 
 ```bash
-python3 -m venv .venv
 source .venv/bin/activate
 ```
 
 ### Install dependencies
 
+If the project uses `requirements.txt`:
+
 ```bash
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
----
+If the project is configured with `pyproject.toml`:
+
+```bash
+uv sync
+```
+
+### Run the pipeline with uv
+
+The pipeline can be executed directly through uv:
+
+```bash
+uv run python -m lead_intelligence.pipeline
+```
+
+Using `uv run` ensures the command executes with the project's managed
+environment and dependencies.
 
 ## 16. Gemini API Configuration
 
@@ -667,14 +765,16 @@ The pipeline executes:
 ```text
 1. Ingestion
 2. Validation
-3. Transformation
-4. Qualification
-5. Priority ranking
-6. Pre-LLM checkpoint
-7. Batched LLM processing
-8. LLM result merge
-9. Final CSV generation
-10. Aggregated reporting
+3. Separate valid and invalid records
+4. Quarantine invalid records
+5. Transformation of valid records
+6. Qualification
+7. Priority ranking
+8. Pre-LLM checkpoint
+9. Batched LLM processing
+10. LLM result merge
+11. Final CSV generation
+12. Aggregated reporting
 ```
 
 ---
@@ -736,6 +836,20 @@ The project should include tests covering at least:
 - Invalid company size is detected
 - Invalid date is detected
 - Valid records pass validation
+- Missing `name` is detected
+- Missing `company_size` is detected
+- Missing `industry` is detected
+- Missing `source` is detected
+- Missing `last_interaction_date` is detected
+- Invalid records receive `status = invalid`
+- Valid records receive `status = valid`
+- Validation errors are captured against the correct source row
+- Multiple validation errors for the same row are retained
+- Invalid records are separated from valid records
+- Invalid records are written to `data/quarantine/invalid_leads.csv`
+- Quarantine records contain the original lead data plus the `errors` field
+- Invalid records do not proceed to transformation, qualification, ranking, or LLM processing
+- Valid records continue to the main pipeline
 
 ### Transformation
 
@@ -837,7 +951,10 @@ Outreach messages are limited to information available in the input dataset. The
 
 ### 7. Validation versus filtering
 
-The current pipeline reports invalid records. A production pipeline should explicitly define whether invalid records are rejected, quarantined, or corrected before qualification.
+Invalid records are separated into the quarantine layer before qualification.
+They are not silently discarded: `data/quarantine/invalid_leads.csv` retains
+the source record together with its validation errors so the data can be
+corrected and potentially reprocessed.
 
 ---
 
@@ -868,7 +985,10 @@ The pipeline persists:
 ```text
 raw
   ↓
-transformed
+validation
+  ├── invalid → quarantine
+  ↓
+transformed valid data
   ↓
 pre-LLM
   ↓
@@ -904,6 +1024,7 @@ LLM failures should not corrupt deterministic qualification results.
 | Decision | `qualification/rubric.py` |
 | Reasoning | Gemini LLM |
 | Priority rank | `qualification/rubric.py` |
+| Validation and quarantine | `validator.py` + `data/quarantine/invalid_leads.csv` |
 | Pre-LLM checkpoint | `pre_llm_leads.csv` |
 | Total processed | Reporting layer |
 | Qualified percentage | Reporting layer |
@@ -916,7 +1037,15 @@ LLM failures should not corrupt deterministic qualification results.
 
 ## 23. Expected End State
 
-After a successful run, the system should provide two primary deliverables:
+After a successful run, the system should provide the following primary
+datasets/reports:
+
+```text
+data/quarantine/invalid_leads.csv
+```
+
+Contains invalid records that failed data-quality validation, together with
+their validation errors.
 
 ```text
 data/output/final_leads.csv

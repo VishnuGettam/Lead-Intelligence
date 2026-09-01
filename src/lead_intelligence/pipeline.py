@@ -30,7 +30,12 @@ import json
 # Configuration
 # ============================================================
 
-LEADS_PATH = "data/raw/leads_training.csv"
+#LEADS_PATH = "data/raw/leads_training.csv"
+LEADS_PATH = "data/raw/final_leads.csv"
+
+
+QUARANTINE_OUTPUT_PATH = ("data/quarantine/invalid_leads.csv")
+
 
 TRANSFORMED_OUTPUT_PATH = (
     "data/processed/leads_training_tf.csv"
@@ -356,6 +361,43 @@ def main():
         f"Invalid leads: {invalid_count}"
     )
 
+    # valid leads for transformation
+    valid_leads = leads[
+    validation_results["status"] == "valid"
+            ].copy()
+
+    # invalid leads to be quarantine 
+    invalid_leads = leads[validation_results["status"] == "invalid"].copy()
+
+    invalid_leads["status"] = (
+    validation_results.loc[
+        invalid_leads.index,
+        "status"
+    ].values
+    )
+
+    invalid_leads["errors"] = (
+        validation_results.loc[
+            invalid_leads.index,
+            "errors"
+        ]
+        .apply(lambda errors: ", ".join(errors))
+        .values
+    )
+        
+    Path(
+            QUARANTINE_OUTPUT_PATH
+        ).parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+    
+    invalid_leads.to_csv(
+        QUARANTINE_OUTPUT_PATH,
+        index=False,
+    )
+
+
 
     # ========================================================
     # 3. TRANSFORMATION
@@ -366,7 +408,7 @@ def main():
     )
 
     transformed_leads = clean_leads(
-        leads
+        valid_leads
     )
 
     # --------------------------------------------------------
